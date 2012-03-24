@@ -82,16 +82,27 @@ case class East extends AbsoluteDirection
 case class West extends AbsoluteDirection
 
 
+//message for making protocol
+sealed abstract class MessageToMakeProtocolString
+case class AroundMapData(dir: AbsoluteDirection, time: Int, ) extends MessageToMakeProtocolString
+
 object PhidmProtocolParser {
   def protocolToCommand(msg:String): PhiProtocol = {
-    val (protocolType, remainingString) = if(msg.indexOf(' ') >= 0) msg.splitAt(msg.indexOf(' ')) else msg.splitAt(msg.length)
+    val (protocolType, _remainingString) = if(msg.indexOf(' ') >= 0) msg.splitAt(msg.indexOf(' ')) else msg.splitAt(msg.length)
+    val remainingString = _remainingString.drop(1)
     protocolType match {
       case "open" =>
-        Open(remainingString.drop(1))
+        Open(remainingString)
       case "exit" =>
         Exit()
       case _ =>
         NormalMessage(msg)
+    }
+  }
+  
+  def makeProtocolString(x: MessageToMakeProtocolString): String = {
+    x match {
+      
     }
   }
 }

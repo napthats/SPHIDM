@@ -4,7 +4,6 @@ import scala.actors.Actor
 import scala.actors.Actor._
 
 class PlayerCharacter(pcData: PlayerCharacterData, myPcId: PlayerCharacterId) extends Actor {
-
   def act() {
     loop {
       react {
